@@ -1,0 +1,2 @@
+class SystemNotFound(Exception):
+    pass
