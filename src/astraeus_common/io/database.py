@@ -35,6 +35,7 @@ class Database:
         with self.__db_connection() as connection:
             with connection.cursor(cursor_factory=DictCursor) as cursor:
                 cursor.execute('SELECT 1')
+                cursor.execute('SELECT * FROM ASTRAEUS.BODY')
 
     def __db_connection(self):
         try:
