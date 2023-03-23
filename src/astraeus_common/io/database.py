@@ -7,6 +7,7 @@ import yoyo
 from psycopg2.extras import DictCursor
 from yoyo import read_migrations, get_backend
 
+PING_QUERY = 'SELECT 1'
 
 class Database:
     _db_host: str
@@ -22,20 +23,20 @@ class Database:
         self._db_name = db_name
         self._db_password = db_password
         self._log = structlog.get_logger()
-        self.__try_connection()
+        self.__try_connection(PING_QUERY)
         self.__apply_migration()
+        self.__try_connection('SELECT * FROM ASTRAEUS.BODY')
 
     def __apply_migration(self):
         backend = get_backend(f'postgresql://{self._db_user}:{self._db_password}@'
                               f'{self._db_host}:{self._db_port}/{self._db_name}')
-        migrations = read_migrations('../../../db')
+        migrations = read_migrations('./db')
         backend.apply_migrations(backend.to_apply(migrations))
 
-    def __try_connection(self):
+    def __try_connection(self, query: str):
         with self.__db_connection() as connection:
             with connection.cursor(cursor_factory=DictCursor) as cursor:
-                cursor.execute('SELECT 1')
-                cursor.execute('SELECT * FROM ASTRAEUS.BODY')
+                cursor.execute(query)
 
     def __db_connection(self):
         try:
