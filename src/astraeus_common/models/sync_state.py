@@ -1,6 +1,30 @@
 import json
 from datetime import datetime
 
+SYNC_STATE_SELECT_BY_KEY = '''
+select key, sync_date, type, sync_hash
+from sync_state
+where key = %(key)s
+'''
+
+SYNC_STATE_INSERT = '''
+insert into sync_state
+(key, sync_date, type, sync_hash)
+values (%(key)s, %(sync_date)s, %(type)s, %(sync_hash)s)
+'''
+
+SYNC_STATE_UPDATE_BY_KEY = '''
+update sync_state
+set sync_date = %(sync_date)s,
+    type = %(type)s,
+    sync_hash = %(sync_hash)s,
+    previous_state = %(previous_state)s
+where key = %(key)s
+'''
+
+SYNC_STATE_DELETE_BY_KEY = '''
+delete from sync_state where key = %(key)s
+'''
 
 class SyncState:
     _key: dict
