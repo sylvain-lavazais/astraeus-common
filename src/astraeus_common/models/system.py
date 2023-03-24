@@ -2,37 +2,6 @@ import json
 from datetime import datetime
 
 
-SYSTEM_SELECT_BY_KEY = '''
-select key, name, coordinates, require_permit, 
-information, update_time, primary_star
-from system
-where key = %(key)s
-'''
-
-SYSTEM_INSERT = '''
-insert into system 
-(key, name, coordinates, require_permit, 
-information, update_time, primary_star)
-values 
-(%(key)s,%(name)s,%(coordinates)s,%(require_permit)s,
-%(information)s,%(update_time)s,%(primary_star)s);
-'''
-
-SYSTEM_UPDATE_BY_KEY = '''
-update system 
-set name = %(name)s,
-    coordinates = %(coordinates)s,
-    require_permit = %(require_permit)s,
-    information = %(information)s,
-    update_time = %(update_time)s,
-    primary_star = %(primary_star)s
-where key = %(key)s
-'''
-
-SYSTEM_DELETE_BY_KEY = '''
-delete from system where key = %(key)s
-'''
-
 class System:
     _key: dict
     _name: str
@@ -41,6 +10,37 @@ class System:
     _information: dict
     _update_time: datetime
     _primary_star: dict
+
+    SYSTEM_SELECT_BY_KEY = '''
+    select key, name, coordinates, require_permit, 
+    information, update_time, primary_star
+    from system
+    where key = %(key)s
+    '''
+
+    SYSTEM_INSERT = '''
+    insert into system 
+    (key, name, coordinates, require_permit, 
+    information, update_time, primary_star)
+    values 
+    (%(key)s,%(name)s,%(coordinates)s,%(require_permit)s,
+    %(information)s,%(update_time)s,%(primary_star)s);
+    '''
+
+    SYSTEM_UPDATE_BY_KEY = '''
+    update system 
+    set name = %(name)s,
+        coordinates = %(coordinates)s,
+        require_permit = %(require_permit)s,
+        information = %(information)s,
+        update_time = %(update_time)s,
+        primary_star = %(primary_star)s
+    where key = %(key)s
+    '''
+
+    SYSTEM_DELETE_BY_KEY = '''
+    delete from system where key = %(key)s
+    '''
 
     @property
     def key(self) -> dict:

@@ -2,43 +2,6 @@ import json
 from datetime import datetime
 from uuid import UUID
 
-EDDN_MESSAGE_SELECT_BY_ID = '''
-select id, "schema", header, message, recv_date, sync_date
-from eddn_message
-where id = %(id)s
-'''
-
-EDDN_MESSAGE_SELECT_UNREAD = '''
-select id, "schema", header, message, recv_date, sync_date
-from eddn_message
-where sync_date is null
-'''
-
-EDDN_MESSAGE_INSERT = '''
-insert into eddn_message 
-("schema", header, message, recv_date, sync_date)
-values (%(schema)s, 
-        %(header)s, 
-        %(message)s, 
-        %(recv_date)s, 
-        %(sync_date)s);
-'''
-
-EDDN_MESSAGE_UPDATE_BY_ID = '''
-update eddn_message
-set "schema" = %(schema)s,
-    header = %(header)s,
-    message = %(message)s,
-    recv_date = %(recv_date)s,
-    sync_date = %(sync_date)s
-where id = %(id)s
-'''
-
-EDDN_MESSAGE_DELETE_BY_ID = '''
-delete from eddn_message
-where id = %(id)s
-'''
-
 class EddnMsg:
     _id: UUID
     _schema: str
@@ -46,6 +9,43 @@ class EddnMsg:
     _message: dict
     _recv_date: datetime
     _sync_date: datetime
+
+    EDDN_MESSAGE_SELECT_BY_ID = '''
+    select id, "schema", header, message, recv_date, sync_date
+    from eddn_message
+    where id = %(id)s
+    '''
+
+    EDDN_MESSAGE_SELECT_UNREAD = '''
+    select id, "schema", header, message, recv_date, sync_date
+    from eddn_message
+    where sync_date is null
+    '''
+
+    EDDN_MESSAGE_INSERT = '''
+    insert into eddn_message 
+    ("schema", header, message, recv_date, sync_date)
+    values (%(schema)s, 
+            %(header)s, 
+            %(message)s, 
+            %(recv_date)s, 
+            %(sync_date)s);
+    '''
+
+    EDDN_MESSAGE_UPDATE_BY_ID = '''
+    update eddn_message
+    set "schema" = %(schema)s,
+        header = %(header)s,
+        message = %(message)s,
+        recv_date = %(recv_date)s,
+        sync_date = %(sync_date)s
+    where id = %(id)s
+    '''
+
+    EDDN_MESSAGE_DELETE_BY_ID = '''
+    delete from eddn_message
+    where id = %(id)s
+    '''
 
     @property
     def id(self) -> UUID:
