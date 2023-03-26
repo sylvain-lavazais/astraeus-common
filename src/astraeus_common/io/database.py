@@ -36,6 +36,7 @@ class Database:
         self._log.debug('applying yoyo migration')
         backend = get_backend(f'postgresql://{self._db_user}:{self._db_password}@'
                               f'{self._db_host}:{self._db_port}/{self._db_name}')
+        self._log.debug(f'applying migration files in {self._migration_folder}')
         migrations = read_migrations(self._migration_folder)
         backend.apply_migrations(backend.to_apply(migrations))
 
