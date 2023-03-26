@@ -37,7 +37,6 @@ class Database:
         backend = get_backend(f'postgresql://{self._db_user}:{self._db_password}@'
                               f'{self._db_host}:{self._db_port}/{self._db_name}')
         migrations = read_migrations(self._migration_folder)
-        print(migrations)
         backend.apply_migrations(backend.to_apply(migrations))
 
     def __try_connection(self, query: str):
