@@ -1,13 +1,16 @@
+import os
 import sys
 from typing import List
 
 import psycopg2
 import structlog
-import yoyo
 from psycopg2.extras import DictCursor
 from yoyo import read_migrations, get_backend
 
+from . import db
+
 PING_QUERY = 'SELECT 1'
+
 
 class Database:
     _db_host: str
@@ -15,8 +18,10 @@ class Database:
     _db_user: str
     _db_name: str
     _db_password: str
+    _migration_folder: str
 
     def __init__(self, db_host: str, db_port: str, db_user: str, db_name: str, db_password: str):
+        self._migration_folder = os.path.dirname(os.path.abspath(db.__file__))
         self._db_host = db_host
         self._db_port = db_port
         self._db_user = db_user
@@ -28,9 +33,11 @@ class Database:
         self.__try_connection('SELECT * FROM ASTRAEUS.BODY')
 
     def __apply_migration(self):
+        self._log.debug('applying yoyo migration')
         backend = get_backend(f'postgresql://{self._db_user}:{self._db_password}@'
                               f'{self._db_host}:{self._db_port}/{self._db_name}')
-        migrations = read_migrations('./db')
+        migrations = read_migrations(self._migration_folder)
+        print(migrations)
         backend.apply_migrations(backend.to_apply(migrations))
 
     def __try_connection(self, query: str):
@@ -75,4 +82,3 @@ class Database:
         except psycopg2.DatabaseError as error:
             self._log.error(f'Error occur on write of {log_query} - {error}')
             connection.rollback()
-
