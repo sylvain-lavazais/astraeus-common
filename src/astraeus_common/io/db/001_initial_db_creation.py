@@ -11,12 +11,12 @@ steps = [
                 CREATE TABLE IF NOT EXISTS "astraeus"."system"
                         (
                         "key"            jsonb PRIMARY KEY,
-                                "name"           text,
-                                "coordinates"    jsonb,
-                                "require_permit" boolean,
-                                "information"    jsonb,
-                                "update_time"    timestamp,
-                                "primary_star"   jsonb
+                        "name"           text,
+                        "coordinates"    jsonb,
+                        "require_permit" boolean,
+                        "information"    jsonb,
+                        "update_time"    timestamp,
+                        "primary_star"   jsonb
                         )
                 '''
         ),

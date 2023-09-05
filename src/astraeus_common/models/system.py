@@ -12,23 +12,23 @@ class System:
     _primary_star: dict
 
     SYSTEM_SELECT_BY_KEY = '''
-    select key, name, coordinates, require_permit, 
+    select key, name, coordinates, require_permit,
     information, update_time, primary_star
     from system
     where key = %(key)s
     '''
 
     SYSTEM_INSERT = '''
-    insert into system 
-    (key, name, coordinates, require_permit, 
+    insert into system
+    (key, name, coordinates, require_permit,
     information, update_time, primary_star)
-    values 
+    values
     (%(key)s,%(name)s,%(coordinates)s,%(require_permit)s,
     %(information)s,%(update_time)s,%(primary_star)s);
     '''
 
     SYSTEM_UPDATE_BY_KEY = '''
-    update system 
+    update system
     set name = %(name)s,
         coordinates = %(coordinates)s,
         require_permit = %(require_permit)s,
