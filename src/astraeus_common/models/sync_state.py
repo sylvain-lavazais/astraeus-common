@@ -2,7 +2,6 @@ import json
 from datetime import datetime
 
 
-
 class SyncState:
     _key: dict
     _sync_date: datetime

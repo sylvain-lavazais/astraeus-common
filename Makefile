@@ -22,14 +22,50 @@ db-local-reset: ## Fully reset local db (use Docker)
 ##@ Install
 ##  -------
 
-install: .revolve-dep ## Run locally the application
+install-editable: ## Install local dev with editable option
+	@echo "===> $@ <==="
 	@rm -rf build dist
 	@python -m build
 	@pip install --force-reinstall --editable .
+.PHONY: install-editable
+
+install: ## Install application
+	@echo "===> $@ <==="
+	@rm -rf build dist
+	@python -m build
+	@pip install --force-reinstall .
 .PHONY: install
 
-build: .revolve-dep ## Build the application
+install-test: install ## Install application and tests modules
+	@echo "===> $@ <==="
+	@pip install astraeus-common\[test\]
+.PHONY: install-test
+
+install-all: install install-test ## Install all application dependencies
+	@echo "===> $@ <==="
+	@pip install astraeus-common\[dev\]
+.PHONY: install-all
+
+build: install ## Build the application
 	@python -m build
+
+##  -------
+##@ Quality
+##  -------
+
+apply-isort: ## Applying autosort of imports
+	@echo "===> $@ <==="
+	@if ! python -m isort > /dev/null; then $(MAKE) install-test; fi
+	@python -m isort ./src ./test --sp .github/linters/.isort.cfg
+	@echo "Done !"
+.PHONY: apply-isort
+
+check-linter: ## Run flake8 linter on sources
+	@echo "===> $@ <==="
+	@if ! python -m flake8 --version; then $(MAKE) install-test; fi
+	@python -m flake8 --config .github/linters/.flake8 ./src ./test
+	@echo "Done !"
+.PHONY: check-linter
 
 ##  ----
 ##@ Misc

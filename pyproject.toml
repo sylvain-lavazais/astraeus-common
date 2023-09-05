@@ -100,10 +100,10 @@ classifiers = [# Optional
 # For an analysis of this field vs pip's requirements files see:
 # https://packaging.python.org/discussions/install-requires-vs-requirements/
 dependencies = [# Optional
-    "yoyo-migrations~=8.2.0",
-    "psycopg2~=2.9.4",
-    "psycopg2-binary~=2.9.4",
-    "structlog~=22.3.0",
+    "yoyo-migrations==8.2.*",
+    "psycopg2==2.9.*",
+    "psycopg2-binary==2.9.*",
+    "structlog==22.3.*",
 ]
 
 # List additional groups of dependencies here (e.g. development
@@ -115,8 +115,16 @@ dependencies = [# Optional
 # Similar to `dependencies` above, these must be valid existing
 # projects.
 [project.optional-dependencies] # Optional
-dev = ["check-manifest"]
-test = ["coverage"]
+dev = [
+    "types-requests==2.28.11.*",
+    "check-manifest==0.49"
+]
+test = [
+    "coverage==7.2.*",
+    "isort==5.12.*",
+    "flake8==6.0.*",
+    "responses==0.23.*"
+]
 
 # List URLs that are relevant to your project
 #
@@ -143,5 +151,5 @@ test = ["coverage"]
 [build-system]
 # These are the assumed default build requirements from pip:
 # https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
-requires = ["setuptools>=43.0.0", "wheel"]
+requires = ["setuptools>=43.0.0", "wheel", "build"]
 build-backend = "setuptools.build_meta"
