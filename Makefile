@@ -71,9 +71,10 @@ check-linter: ## Run flake8 linter on sources
 ##@ Misc
 ##  ----
 
-.revolve-dep:
-	@python -m pip install -r requirements.txt
-.PHONY: .revolve-dep
+prepare-release: ## Prepare files before making a new release of version
+	@echo "===> $@ <==="
+	@sed -Ei 's/version = .*/version = "${VERSION}"/g' pyproject.toml
+.PHONY: prepare-release
 
 .DEFAULT_GOAL := help
 APPLICATION_TITLE := Astraeus - astraeus-common \n ================
