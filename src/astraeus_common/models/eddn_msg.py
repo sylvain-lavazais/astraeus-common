@@ -119,22 +119,22 @@ class EddnMsg:
 
     def to_dict(self):
         return {
-                'id'       : self._id,
-                'schema'   : self._schema,
-                'header'   : self._header,
-                'message'  : self._message,
-                'recv_date': self._recv_date,
-                'sync_date': self._sync_date,
+            'id': self._id,
+            'schema': self._schema,
+            'header': self._header,
+            'message': self._message,
+            'recv_date': self._recv_date,
+            'sync_date': self._sync_date,
         }
 
     def to_dict_for_db(self):
         return {
-                'id'       : self._id,
-                'schema'   : self._schema,
-                'header'   : json.dumps(self._header),
-                'message'  : json.dumps(self._message),
-                'recv_date': self._recv_date,
-                'sync_date': self._sync_date,
+            'id': self._id,
+            'schema': self._schema,
+            'header': json.dumps(self._header),
+            'message': json.dumps(self._message),
+            'recv_date': self._recv_date,
+            'sync_date': self._sync_date,
         }
 
 

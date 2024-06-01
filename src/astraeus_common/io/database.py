@@ -52,11 +52,11 @@ class Database:
     def __db_connection(self):
         try:
             params = {
-                    'database': self._db_name,
-                    'user'    : self._db_user,
-                    'password': self._db_password,
-                    'host'    : self._db_host,
-                    'port'    : self._db_port
+                'database': self._db_name,
+                'user': self._db_user,
+                'password': self._db_password,
+                'host': self._db_host,
+                'port': self._db_port
             }
             return psycopg2.connect(**params)
         except (Exception, psycopg2.DatabaseError) as error:

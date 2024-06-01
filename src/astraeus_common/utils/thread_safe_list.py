@@ -11,30 +11,68 @@ class ThreadSafeList(list):
         self._lock = Lock()
 
     def clear(self) -> None:
+        """
+        Clears the contents of the object.
+
+        :return: None
+
+        """
         with self._lock:
             super().clear()
 
     def copy(self) -> list:
+        """
+        Return a copy of the object.
+
+        :return: A copy of the object.
+
+        :rtype: List
+        """
         with self._lock:
             return super().copy()
 
     def append(self, _object: Any) -> None:
+        """
+        Append an object to the list.
+
+        :param _object: The object to be appended to the list.
+        """
         with self._lock:
             super().append(_object)
 
     def extend(self, _iterable: Iterable[Any]) -> None:
+        """
+        Extends the current object with the elements from the given iterable.
+
+        :param _iterable: An iterable containing elements to be added to the current object.
+        :type _iterable: Iterable[Any]
+        """
         with self._lock:
             super().extend(_iterable)
 
     def remove(self, _value: Any) -> None:
+        """
+        Remove a value from the object.
+
+        :param _value: The value to be removed.
+        """
         with self._lock:
             super().remove(_value)
 
     def reverse(self) -> None:
+        """
+        Reverses the elements in the list.
+        """
         with self._lock:
             super().reverse()
 
     def sort(self, **kwargs) -> None:
+        """
+        Sorts the elements in the object.
+
+        :param kwargs: additional sorting arguments
+        :type kwargs: dict
+        """
         with self._lock:
             super().sort(**kwargs)
 
