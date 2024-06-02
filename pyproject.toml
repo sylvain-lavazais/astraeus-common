@@ -104,7 +104,7 @@ dependencies = [# Optional
     "yoyo-migrations==8.2.*",
     "psycopg2==2.9.*",
     "psycopg2-binary==2.9.*",
-    "structlog==22.3.*",
+    "structlog==24.2.*",
 ]
 
 # List additional groups of dependencies here (e.g. development
