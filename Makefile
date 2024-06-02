@@ -1,13 +1,9 @@
 PWD=$(shell pwd)
 .DEFAULT_GOAL := help
 
-help: ## Print this message
-	@echo  "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sort | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\x1b[36m\1\x1b[m:\2/' | column -c2 -t -s :)"
-.PHONY: help
-
-.revolve-dep:
-	@python -m pip install -r requirements.txt
-.PHONY: .revolve-dep
+##  --------
+##@ Database
+##  --------
 
 db-local-apply: .revolve-dep ## Apply database migrations scripts
 	@python -m yoyo --config yoyo-local.ini apply
@@ -22,6 +18,10 @@ db-local-reset: ## Fully reset local db (use Docker)
 	@make db-local-apply
 .PHONY: db-local-reset
 
+##  -------
+##@ Install
+##  -------
+
 install: .revolve-dep ## Run locally the application
 	@rm -rf build dist
 	@python -m build
@@ -30,3 +30,20 @@ install: .revolve-dep ## Run locally the application
 
 build: .revolve-dep ## Build the application
 	@python -m build
+
+##  ----
+##@ Misc
+##  ----
+
+.revolve-dep:
+	@python -m pip install -r requirements.txt
+.PHONY: .revolve-dep
+
+.DEFAULT_GOAL := help
+APPLICATION_TITLE := Astraeus - astraeus-common \n ================
+.PHONY: help
+# See https://www.thapaliya.com/en/writings/well-documented-makefiles/
+help: ## Display this help
+	@awk 'BEGIN {FS = ":.* ##"; printf "\n\033[32;1m ${APPLICATION_TITLE}\033[0m\n\n\033[1mUsage:\033[0m\n  \033[31mmake \033[36m<option>\033[0m\n"} /^[%a-zA-Z_-]+:.* ## / { printf "  \033[33m%-25s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' ${MAKEFILE_LIST}
+
+##@
