@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 from uuid import UUID
 
+
 class EddnMsg:
     _id: UUID
     _schema: str

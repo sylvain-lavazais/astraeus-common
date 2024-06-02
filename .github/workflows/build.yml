@@ -1,0 +1,43 @@
+name: release management
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [ 'opened', 'synchronize', 'reopened' ]
+
+jobs:
+  unit-test:
+    name: 'Check Quality (unit-test)'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: 'Checkout sources'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Getting python'
+        uses: 'actions/setup-python@v4'
+        with:
+          python-version: '3.11'
+
+  release:
+    name: 'Release version'
+    if: github.ref == 'refs/heads/main'
+    runs-on: 'ubuntu-latest'
+    needs: [ unit-test ]
+    steps:
+      - name: 'Checkout sources'
+        uses: 'actions/checkout@v3'
+
+      - name: 'Semantic Release'
+        uses: 'cycjimmy/semantic-release-action@v2'
+        with:
+          semantic_version: 21.1.11
+          extra_plugins: |
+            @semantic-release/commit-analyzer@10.0.4
+            @semantic-release/release-notes-generator@11.0.7
+            @semantic-release/changelog@6.0.3
+            @semantic-release/github@9.0.4
+            @semantic-release/exec@6.0.3
+            @semantic-release/git@10.0.1
+        env:
+          GH_TOKEN: ${{ secrets.CI_TOKEN }}

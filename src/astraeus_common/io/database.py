@@ -5,9 +5,13 @@ from typing import List
 import psycopg2
 import structlog
 from psycopg2.extras import DictCursor
-from yoyo import read_migrations, get_backend
+from yoyo import get_backend, read_migrations
 
 from . import db
+
+SELECT_BODY = '''
+SELECT * FROM astraeus.body
+'''
 
 PING_QUERY = 'SELECT 1'
 
@@ -30,7 +34,7 @@ class Database:
         self._log = structlog.get_logger()
         self.__try_connection(PING_QUERY)
         self.__apply_migration()
-        self.__try_connection('SELECT * FROM ASTRAEUS.BODY')
+        self.__try_connection(SELECT_BODY)
 
     def __apply_migration(self):
         self._log.debug('applying yoyo migration')
