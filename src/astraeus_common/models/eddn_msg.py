@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 from uuid import UUID
 
+
 class EddnMsg:
     _id: UUID
     _schema: str
@@ -23,12 +24,12 @@ class EddnMsg:
     '''
 
     EDDN_MESSAGE_INSERT = '''
-    insert into eddn_message 
+    insert into eddn_message
     ("schema", header, message, recv_date, sync_date)
-    values (%(schema)s, 
-            %(header)s, 
-            %(message)s, 
-            %(recv_date)s, 
+    values (%(schema)s,
+            %(header)s,
+            %(message)s,
+            %(recv_date)s,
             %(sync_date)s);
     '''
 
@@ -118,22 +119,22 @@ class EddnMsg:
 
     def to_dict(self):
         return {
-                'id'       : self._id,
-                'schema'   : self._schema,
-                'header'   : self._header,
-                'message'  : self._message,
-                'recv_date': self._recv_date,
-                'sync_date': self._sync_date,
+            'id': self._id,
+            'schema': self._schema,
+            'header': self._header,
+            'message': self._message,
+            'recv_date': self._recv_date,
+            'sync_date': self._sync_date,
         }
 
     def to_dict_for_db(self):
         return {
-                'id'       : self._id,
-                'schema'   : self._schema,
-                'header'   : json.dumps(self._header),
-                'message'  : json.dumps(self._message),
-                'recv_date': self._recv_date,
-                'sync_date': self._sync_date,
+            'id': self._id,
+            'schema': self._schema,
+            'header': json.dumps(self._header),
+            'message': json.dumps(self._message),
+            'recv_date': self._recv_date,
+            'sync_date': self._sync_date,
         }
 
 

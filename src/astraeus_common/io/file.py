@@ -1,5 +1,5 @@
 import json
-from typing import List, Callable
+from typing import Callable, List
 
 import structlog
 
@@ -12,6 +12,11 @@ class File:
         self._log = structlog.get_logger()
 
     def read_json_file(self) -> List[dict]:
+        """
+        Read a JSON file and return a list of dictionaries.
+
+        :return: A list of dictionaries containing the data from the JSON file.
+        """
         data = []
         try:
             with open(self.file_path) as json_file:
@@ -27,7 +32,13 @@ class File:
 
         return data
 
-    def read_json_file_and_exec(self, function: Callable):
+    def read_json_file_and_exec(self, function: Callable) -> None:
+        """
+        Read a JSON file and execute a given function for every batch of rows.
+
+        :param function: The function to be executed for every batch of rows.
+        :type function: Callable
+        """
         try:
             with open(self.file_path) as json_file:
                 self._log.info(f'Reading json file {self.file_path}')
