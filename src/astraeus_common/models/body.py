@@ -42,7 +42,7 @@ class Body:
     sub_type, discovery, update_time, materials,
     solid_composition, atmosphere_composition, parents,
     belts, rings, properties)
-    values 
+    values
     (%(key)s, %(system_key)s, %(name)s, %(type)s,
     %(sub_type)s, %(discovery)s, %(update_time)s, %(materials)s,
     %(solid_composition)s, %(atmosphere_composition)s, %(parents)s,

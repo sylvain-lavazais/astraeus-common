@@ -24,12 +24,12 @@ class EddnMsg:
     '''
 
     EDDN_MESSAGE_INSERT = '''
-    insert into eddn_message 
+    insert into eddn_message
     ("schema", header, message, recv_date, sync_date)
-    values (%(schema)s, 
-            %(header)s, 
-            %(message)s, 
-            %(recv_date)s, 
+    values (%(schema)s,
+            %(header)s,
+            %(message)s,
+            %(recv_date)s,
             %(sync_date)s);
     '''
 
