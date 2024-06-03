@@ -1,6 +1,6 @@
 # Project Astraeus - Astraeus common
 
-This Repository is a part of a bigger project called `Astraeus`.
+This Repository is a part of a bigger project called `Astraeus`. 
 
 `Astraeus` aim to guide fleet carrier commander through the galaxy and environments of Elite Dangerous.
 
