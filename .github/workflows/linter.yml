@@ -4,6 +4,8 @@ on:
 
 name: 'Lint code base'
 
+permissions: { }
+
 jobs:
   linter:
     name: 'Super Linter'

@@ -6,6 +6,8 @@ on:
   pull_request:
     types: [ 'opened', 'synchronize', 'reopened' ]
 
+permissions: { }
+
 jobs:
   unit-test:
     name: 'Check Quality (unit-test)'
