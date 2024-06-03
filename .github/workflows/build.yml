@@ -26,6 +26,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: 'ubuntu-latest'
     needs: [ unit-test ]
+    permissions: write-all
     steps:
       - name: 'Checkout sources'
         uses: 'actions/checkout@v4'
